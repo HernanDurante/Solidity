@@ -1,0 +1,21 @@
+{
+  "name": "pollexample",
+  "version": "1.0.0",
+  "description": "\"Example of a  smart contract that allows users to cast a vote and see the results\"",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/HernanDurante/Solidity"
+  },
+  "author": "Hernan Durante",
+  "license": "ISC",
+  "dependencies": {
+    "openzeppelin-solidity": "^1.12.0"
+  }
+}
