@@ -4,7 +4,10 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract Poll is Ownable {
 
+    event VoteCasted(bool option);
+
     using SafeMath for uint16;
+    using SafeMath for uint;
 
     struct VoteStruct {
         address voter;
@@ -13,14 +16,11 @@ contract Poll is Ownable {
 
     VoteStruct[] private votes;
     uint voteFee = 10 finney;
-    
-    modifier voted() {
-        require(adressVoted());
-        _;
-    }
 
     modifier pendingVote() {
-        require(!adressVoted());
+        address voter;
+        (voter,) = getVoteByAddress();
+        require(voter == address(0));
         _;
     }
 
@@ -32,9 +32,15 @@ contract Poll is Ownable {
         require(msg.value >= voteFee, "Ether sent is not enough to vote");
         VoteStruct memory ballot = VoteStruct(msg.sender, _option);
         votes.push(ballot);
+        if(msg.value > voteFee)
+        {
+            uint change = msg.value.sub(voteFee);
+            msg.sender.transfer(change);
+        }
+        emit VoteCasted(_option);
     }  
     
-    function getPollResults() public view voted returns(uint16 positiveVotes,uint16 negativeVotes) {
+    function getPollResults() public view returns(uint16 positiveVotes,uint16 negativeVotes) {
         
         positiveVotes = 0;
         negativeVotes = 0;
@@ -46,25 +52,26 @@ contract Poll is Ownable {
             } else {
                 negativeVotes.add(1);
             }
+            index++;
         }
-        //return (positiveVotes,negativeVotes);
     }
 
-    function adressVoted() public view returns(bool)
+    function getVoteByAddress() public view returns(address voter, bool option)
     {
-        bool result = false;
+        VoteStruct memory result = VoteStruct(address(0),false);
         if(votes.length > 0)
         {       
             uint index = 0;
-            while(index < votes.length || result)
+            while(index < votes.length && voter == address(0))
             {
                 if(votes[index].voter == msg.sender)
                 {
-                    result = true;
+                    result = votes[index];
                 }
+                index++;
             }
-         }  
-        return result;
+         }
+        return(result.voter,result.option);  
     }
 
 }
