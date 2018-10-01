@@ -3,6 +3,7 @@
       var userAccount;
       var pollresults = {"positive": 0, "negative": 0};
       var blockNbr = 0;
+      const pollAddress = '0x0189870ccc57f845d69b8777dc522cecf52599cd';
 
       $(document).ready(function() {
         $("#btnVoteYes").click(function(){
@@ -13,8 +14,7 @@
         });
       });
 
-      function startApp() {
-        var pollAddress = '0x0189870ccc57f845d69b8777dc522cecf52599cd';
+      function startApp() {       
         var pollContract = web3js.eth.contract(pollABI.abi);
         pollContractInstance = pollContract.at(pollAddress);
         var voteCastedEvent = pollContractInstance.VoteCasted({},{fromBlock: blockNbr, toBlock: 'latest'});
