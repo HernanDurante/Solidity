@@ -31,5 +31,6 @@ contract('PollExample', function(accounts) {
     var result = await poll.getVoteByAddress({from: accounts[3]});
     assert.equal(result[0], accounts[3]);
   });
-
+  
+  
 });

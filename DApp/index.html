@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Poll DApp</title>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/poll.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Poll smart contract example DApp</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="votedYes" style="margin-top:10px; display: none">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                <h1 class="mt-5">You voted YES on proposition 24</h1>
+              </div>
+            </div>
+            <div class="row" style="margin-top:10px; margin-bottom:10px;">
+              <div class="col-lg-12 text-center">
+                  <img src="images/yesOn24.jpg" class="img-responsive">
+              </div>
+            </div>
+      </div>
+      <div class="votedNo" style="margin-top:10px; display: none">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                <h1 class="mt-5">You voted NO on proposition 24</h1>
+              </div>
+            </div>
+            <div class="row" style="margin-top:10px; margin-bottom:10px;">
+              <div class="col-lg-12 text-center">
+                  <img src="images/noOn24.jpg" class="img-responsive">
+              </div>
+            </div>
+      </div>
+      <div class="pendingVote">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h1 class="mt-5">Proposition 24</h1>
+            </div>
+          </div>
+        <div class="row" style="margin-top:10px; margin-bottom:10px;">
+          <div class="col-lg-12 text-center">
+              <img src="images/proposal24.jpg" class="img-responsive">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <span>YES ON 24: <span id="yesResults"></span><span class="pendingVote"><button id="btnVoteYes" class="btn-danger">Vote YES</button></span></span>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <span>NO ON 24: <span id="noResults"></span><span class="pendingVote"><button id="btnVoteNo" class="btn-success">Vote NO</button></span></span>
+          </div>
+      </div>
+      <div class="row" id="loadingMessage" style="display:none">
+          <div class="col-lg-12 text-center">
+              Processing your vote...
+          </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>

@@ -1,12 +1,13 @@
 pragma solidity ^0.4.23;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./libraries/SafeMath16.sol";
 
 contract Poll is Ownable {
 
-    event VoteCasted(bool option);
+    event VoteCasted(bool option, address from);
 
-    using SafeMath for uint16;
+    using SafeMath16 for uint16;
     using SafeMath for uint;
 
     struct VoteStruct {
@@ -37,7 +38,7 @@ contract Poll is Ownable {
             uint change = msg.value.sub(voteFee);
             msg.sender.transfer(change);
         }
-        emit VoteCasted(_option);
+        emit VoteCasted(_option,msg.sender);
     }  
     
     function getPollResults() public view returns(uint16 positiveVotes,uint16 negativeVotes) {
@@ -48,12 +49,13 @@ contract Poll is Ownable {
         while(index < votes.length)
         {
             if(votes[index].option) {
-                positiveVotes.add(1); 
+                positiveVotes = positiveVotes.add(1); 
             } else {
-                negativeVotes.add(1);
+                negativeVotes = negativeVotes.add(1);
             }
             index++;
         }
+        return(positiveVotes,negativeVotes);  
     }
 
     function getVoteByAddress() public view returns(address voter, bool option)
